@@ -1,6 +1,3 @@
-import os
-
-
 """
 Django settings for telemetriaFEB project.
 
@@ -58,7 +55,7 @@ ROOT_URLCONF = 'telemetriaFEB.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'data', 'templates')],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -116,8 +113,6 @@ USE_I18N = True
 USE_TZ = True
 
 
-
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
@@ -132,10 +127,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # see https://help.pythonanywhere.com/pages/DjangoStaticFiles for more info
 MEDIA_ROOT = '/home/danteramacciotti/telemetriaFEB/media'
 MEDIA_URL = '/media/'
-
-"""
+STATIC_ROOT = '/home/danteramacciotti/telemetriaFEB/static'
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-"""
-
-STATICFILES_DIRS = [os.path.join(BASE_DIR,'data/static/image/'),]

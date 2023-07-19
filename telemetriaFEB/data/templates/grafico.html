@@ -1,0 +1,27 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gráficos das Variáveis</title>
+</head>
+<body>
+    <h1>Gráficos das Variáveis</h1>
+    <br><br>
+    <h2>Grafico da Velocidade</h2>
+    <img src="{% static velocidade %}">
+    <br>
+    <h2>Grafico da Temperatura do Motor</h2>
+    <img src="{% static temperatura_motor %}">
+    <br>
+    <h2>Grafico da RPM</h2>
+    <img src="{% static rpm %}">
+    <br>
+    <h2>Grafico da Pressao do Oleo</h2>
+    <img src="{% static pressao_oleo %}">
+    <h2>Grafico da Tensao da Bateria</h2>
+    <img src="{% static tensao_bateria %}">
+</body>
+</html>
+
+
