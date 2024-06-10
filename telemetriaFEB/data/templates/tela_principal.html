@@ -1,48 +1,30 @@
-
 {% extends 'base.html' %}
 
 
+{% load static %}
 
+{% block title %}Tela Principal - Feb Racing{% endblock %}
 
-
-
-
-<!--
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Velocímetro Analógico</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-</head>
-<body>
-    <div class="mostradores">
-        <div class="velocimetro">
-            <div class="velocimetro-marcas"></div>
-            <div class="ponteiro" id="ponteiro-velocimetro"></div>
-            <div class="centro"></div>
-            <div class="numeros"></div>
-        </div>
-        <div class="tacometro">
-            <div class="tacometro-marcas"></div>
-            <div class="ponteiro" id="ponteiro-tacometro"></div>
-            <div class="centro"></div>
-            <div class="numeros"></div>
-        </div>
+{% block content %}
+<div class="mostradores">
+    <div class="velocimetro">
+        <div class="velocimetro-marcas"></div>
+        <div class="ponteiro" id="ponteiro-velocimetro"></div>
+        <div class="centro"></div>
+        <div class="numeros"></div>
     </div>
-    
-    <input type="range" min="0" max="200" value="0" id="controle-velocidade">
-    <input type="range" min="0" max="8000" value="0" id="controle-tacometro">
-    <script src="{% static 'js/tela_principal.js' %}"></script>
+    <div class="tacometro">
+        <div class="tacometro-marcas"></div>
+        <div class="ponteiro" id="ponteiro-tacometro"></div>
+        <div class="centro"></div>
+        <div class="numeros"></div>
+    </div>
+</div>
 
-    
+<input type="range" min="0" max="200" value="0" id="controle-velocidade">
+<input type="range" min="0" max="8000" value="0" id="controle-tacometro">
+<script src="{% static 'js/tela_principal.js' %}"></script>
+{% endblock %}
 
-</body>
-</html>
 
-
--->
 
