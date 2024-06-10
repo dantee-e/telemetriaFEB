@@ -1,5 +1,7 @@
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from .models import Dados
 import json
 import matplotlib.pyplot as plt
@@ -15,82 +17,49 @@ def receber_dados(request):
     if request.method == 'POST':
         dados_recebidos = json.loads(request.body)
         
-        temperatura_motor = dados_recebidos['temperatura_motor']
-        rpm = dados_recebidos['rpm']
-        pressao_oleo = dados_recebidos['pressao_oleo']
-        tensao_bateria = dados_recebidos['tensao_bateria']
-
-        mpu1_gyro_Y = dados_recebidos['mpu1_gyro_Y']
-        mpu1_gyro_X = dados_recebidos['mpu1_gyro_X']
-        mpu1_gyro_Z = dados_recebidos['mpu1_gyro_Z']
-        mpu2_gyro_X = dados_recebidos['mpu2_gyro_X']
-        mpu2_gyro_Y = dados_recebidos['mpu2_gyro_Y']
-        mpu2_gyro_Z = dados_recebidos['mpu2_gyro_Z']
-
-        mpu1_acele_X = dados_recebidos['mpu1_acele_X']
-        mpu1_acele_Y = dados_recebidos['mpu1_acele_Y']
-        mpu1_acele_Z = dados_recebidos['mpu1_acele_Z']
-        mpu2_acele_X = dados_recebidos['mpu2_acele_X']
-        mpu2_acele_Y = dados_recebidos['mpu2_acele_Y']
-        mpu2_acele_Z = dados_recebidos['mpu2_acele_Z']
-
-        pot1 = dados_recebidos['pot1']
-        pot2 = dados_recebidos['pot2']
-        pot3 = dados_recebidos['pot3']
-        pot4 = dados_recebidos['pot4']
-
-        GPSX = dados_recebidos['GPSX']
-        GPSY = dados_recebidos['GPSY']
-        GPSSpeed = dados_recebidos['GPSSpeed']
-        GPSAltitude = dados_recebidos['GPSAltitude']
-
-        MHPS1 = dados_recebidos['MHPS1']
-        MHPS2 = dados_recebidos['MHPS2']
+        print('Dados recebidos: ', dados_recebidos)
         
-        MLX1 = dados_recebidos['MLX1']
-        MLX2 = dados_recebidos['MLX2']
-        MLX3 = dados_recebidos['MLX3']
-        MLX4 = dados_recebidos['MLX4']
-        
+        try:
+            dados = Dados.objects.create(
+                temperatura_motor=float(dados_recebidos.get('temperatura_motor')),
+                rpm=int(dados_recebidos.get('rpm')),
+                pressao_oleo=float(dados_recebidos.get('pressao_oleo')),
+                tensao_bateria=float(dados_recebidos.get('tensao_bateria')),
+                mpu1_gyro_Y=float(dados_recebidos['mpu1_gyro'].get('Y')),
+                mpu1_gyro_X=float(dados_recebidos['mpu1_gyro'].get('X')),
+                mpu1_gyro_Z=float(dados_recebidos['mpu1_gyro'].get('Z')),
+                mpu2_gyro_X=float(dados_recebidos['mpu2_gyro'].get('X')),
+                mpu2_gyro_Y=float(dados_recebidos['mpu2_gyro'].get('Y')),
+                mpu2_gyro_Z=float(dados_recebidos['mpu2_gyro'].get('Z')),
+                mpu1_acele_X=float(dados_recebidos['mpu1_acele'].get('X')),
+                mpu1_acele_Y=float(dados_recebidos['mpu1_acele'].get('Y')),
+                mpu1_acele_Z=float(dados_recebidos['mpu1_acele'].get('Z')),
+                mpu2_acele_X=float(dados_recebidos['mpu2_acele'].get('X')),
+                mpu2_acele_Y=float(dados_recebidos['mpu2_acele'].get('Y')),
+                mpu2_acele_Z=float(dados_recebidos['mpu2_acele'].get('Z')),
+                pot1=float(dados_recebidos['potenciometros'].get('pot1')),
+                pot2=float(dados_recebidos['potenciometros'].get('pot2')),
+                pot3=float(dados_recebidos['potenciometros'].get('pot3')),
+                pot4=float(dados_recebidos['potenciometros'].get('pot4')),
+                GPSX=float(dados_recebidos['GPS'].get('X')),
+                GPSY=float(dados_recebidos['GPS'].get('Y')),
+                GPSSpeed=float(dados_recebidos['GPS'].get('Speed')),
+                GPSAltitude=float(dados_recebidos['GPS'].get('Altitude')),
+                MHPS1=float(dados_recebidos['MHPS'].get('MHPS1')),
+                MHPS2=float(dados_recebidos['MHPS'].get('MHPS2')),
+                MLX1=float(dados_recebidos['MLX'].get('MLX1')),
+                MLX2=float(dados_recebidos['MLX'].get('MLX2')),
+                MLX3=float(dados_recebidos['MLX'].get('MLX3')),
+                MLX4=float(dados_recebidos['MLX'].get('MLX4'))
+            )
             
-
-
-        Dados.objects.create(
-            temperatura_motor=temperatura_motor,
-            rpm=rpm,
-            pressao_oleo=pressao_oleo,
-            tensao_bateria=tensao_bateria,
-            mpu1_gyro_Y = mpu1_gyro_Y,
-            mpu1_gyro_X = mpu1_gyro_X,
-            mpu1_gyro_Z = mpu1_gyro_Z,
-            mpu2_gyro_X = mpu2_gyro_X,
-            mpu2_gyro_Y = mpu2_gyro_Y,
-            mpu2_gyro_Z = mpu2_gyro_Z,
-            mpu1_acele_X = mpu1_acele_X,
-            mpu1_acele_Y = mpu1_acele_Y,
-            mpu1_acele_Z = mpu1_acele_Z,
-            mpu2_acele_X = mpu2_acele_X,
-            mpu2_acele_Y = mpu2_acele_Y,
-            mpu2_acele_Z = mpu2_acele_Z,
-            pot1 = pot1,
-            pot2 = pot2,
-            pot3 = pot3,
-            pot4 = pot4,
-            GPSX = GPSX,
-            GPSY = GPSY,
-            GPSSpeed = GPSSpeed,
-            GPSAltitude = GPSAltitude,
-            MHPS1 = MHPS1,
-            MHPS2 = MHPS2,
-            MLX1 = MLX1,
-            MLX2 = MLX2,
-            MLX3 = MLX3,
-            MLX4 = MLX4
-        )
-        
-        return HttpResponse(status=200)
+            return JsonResponse({"status": "success"}, status=201)
+        except Exception as e:
+            # Log de erro detalhado
+            print("Erro ao processar os dados recebidos:", e)
+            return JsonResponse({"status": "error", "message": str(e)}, status=500)
     else:
-        return HttpResponse(status=405)
+        return JsonResponse({"status": "error", "message": "Método não permitido"}, status=405)
 
 def graficos_basicos(request):
     tempo_anterior = datetime.now() - timedelta(minutes=5)
