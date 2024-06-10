@@ -1,9 +1,29 @@
+
+{% extends 'base.html' %}
+
 {% load static %}
 
-<!DOCTYPE html>
+{% block title %}Index - Feb Racing{% endblock %}
+
+{% block content %}
+    <h2>Quais gráficos você quer ver?</h2>
+    <br><br>
+    <a href="/graficos-basicos/">Gráficos Gerais</a><br>
+    <a href="/graficos-mpu/">Gráficos MPU</a><br>
+    <a href="/graficos-analogicos/">Gráficos Analógicos</a><br>
+    <a href="/graficos-gps/">Gráficos GPS</a><br>
+    <a href="/graficos-mlx/">Gráficos MLX</a><br>
+{% endblock %}
+
+
+<!--
+
+    <!DOCTYPE html>
 <html>
 <head>
     <title>Index</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    
 </head>
 <body>
     <h1>Quais graficos voce quer ver?</h1>
@@ -14,4 +34,8 @@
     <a href="/graficos-gps/">Graficos GPS</a><br>
     <a href="/graficos-mlx/">Graficos MLX</a><br>
 </body>
+
 </html>
+
+-->
+

@@ -52,7 +52,9 @@ def receber_dados(request):
         MLX3 = dados_recebidos['MLX3']
         MLX4 = dados_recebidos['MLX4']
         
-        
+            
+
+
         Dados.objects.create(
             temperatura_motor=temperatura_motor,
             rpm=rpm,
@@ -123,7 +125,7 @@ def graficos_basicos(request):
         plt.clf()
         context[variavel[1]] = imagem_src
         
-    return render(request, 'grafico.html', {'context':context})
+    return render(request, 'tela_principal.html', {'context':context})
 
 def graficos_MPU(request):
     tempo_anterior = datetime.now() - timedelta(minutes=5)
