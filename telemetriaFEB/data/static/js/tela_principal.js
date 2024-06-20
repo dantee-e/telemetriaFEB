@@ -1,4 +1,6 @@
 // script.js
+
+
 document.addEventListener('DOMContentLoaded', () => {
     const numerosVelocimetro = document.querySelector('.velocimetro .numeros');
     const numerosTacometro = document.querySelector('.tacometro .numeros');
@@ -64,3 +66,4 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 });
+
