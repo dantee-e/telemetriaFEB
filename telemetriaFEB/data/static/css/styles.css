@@ -17,6 +17,10 @@ main {
     text-align: center;
 }
 
+h1, h2 {
+    color: #fff;
+}
+
 .mostradores {
     display: flex;
     flex-direction: row;
