@@ -1,5 +1,20 @@
 // script.js
 
+function atualizarPonteiros(json_dados){
+    const ponteiro1 = document.querySelector('#ponteiro-velocimetro');
+    const ponteiro2 = document.querySelector('#ponteiro-tacometro');
+
+    // Ajuste dos graus para os ponteiros de velocidade e tacômetro
+    let grauVelocidade = (json_dados.velocidade / 180) * 270 - 135; // Converte o valor para um ângulo entre -135 e 135
+    ponteiro1.style.transform = `rotate(${grauVelocidade}deg)`;
+
+    let grauRPM = (json_dados.RPM / 14000) * 215 - 135; // Converte o valor para um ângulo entre -135 e 135
+    ponteiro2.style.transform = `rotate(${grauRPM}deg)`;
+
+    console.log('velocidade = '+ json_dados.velocidade);
+    console.log('RPM = '+ json_dados.RPM);
+}
+
 
 document.addEventListener('DOMContentLoaded', () => {
     const numerosVelocimetro = document.querySelector('.velocimetro .numeros');
@@ -46,24 +61,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+/*
+    let i=1;
+    while (1){
+        if(i>5){
+            break;
+        }
+        i++;
+        setTimeout(()=>{
+            fetch('/velocidade-RPM/', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+            },
+            })
+            .then(response => response.json())
+            .then(response => atualizarPonteiros(response));
+            i+=1;
+        },100);
 
-    const ponteiro1 = document.querySelector('#ponteiro-velocimetro');
-    const controleVelocidade = document.getElementById('controle-velocidade');
-    
-    const ponteiro2 = document.querySelector('#ponteiro-tacometro');
-    const controleTacometro = document.getElementById('controle-tacometro');
-
-
-    controleVelocidade.addEventListener('input', (event) => {
-        const valor = event.target.value;
-        const grau = (valor / 80) * 90 - 135; // Converte o valor para um ângulo entre -135 e -45
-        ponteiro1.style.transform = `rotate(${grau}deg)`;
-    });
-    controleTacometro.addEventListener('input', (event) => {
-        const valor = event.target.value;
-        const grau = (valor / 3200) * 90 - 135; // Converte o valor para um ângulo entre -135 e -45
-        ponteiro2.style.transform = `rotate(${grau}deg)`;
-    });
-
+    };
+*/
+   atualizarPonteiros({velocidade: 180, RPM:14000})
 });
 

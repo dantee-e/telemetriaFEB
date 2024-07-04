@@ -15,12 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from data.views import receber_dados, graficos_basicos, graficos_MPU, graficos_analogicos, graficos_GPS, graficos_MLX, index
+from data.views import receber_dados, graficos_basicos, graficos_MPU, graficos_analogicos, graficos_GPS, graficos_MLX, index, velocimetro_RPM
 from django.conf import settings
 from django.conf.urls.static import static
 
 
-
+ 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,6 +31,7 @@ urlpatterns = [
     path('graficos-analogicos/', graficos_analogicos),
     path('graficos-gps/', graficos_GPS),
     path('graficos-mlx/', graficos_MLX),
+    path('velocidade-RPM/', velocimetro_RPM)     
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

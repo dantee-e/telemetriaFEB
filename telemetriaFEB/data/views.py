@@ -11,6 +11,7 @@ import os
 from django.conf import settings
 from django.templatetags.static import static
 from datetime import datetime, timedelta
+import json  
 
 @csrf_exempt
 def receber_dados(request):
@@ -259,6 +260,13 @@ def graficos_MLX(request):
 
 def index(request):
     return render(request, 'index.html')
+
+def velocimetro_RPM(request):
+    tempo_anterior = datetime.now() - timedelta(minutes=5)
+    latest = Dados.objects.latest('data_hora')
+    
+    return JsonResponse({'velocidade': latest.GPSSpeed, 'RPM': latest.rpm})
+    
 
 
 """
