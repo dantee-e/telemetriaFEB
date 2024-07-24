@@ -10,7 +10,8 @@ from .models import Dados
 import os
 from django.conf import settings
 from django.templatetags.static import static
-from datetime import datetime, timedelta
+from datetime import timedelta
+from django.utils import timezone as datetime
 import json  
 
 @csrf_exempt
@@ -62,11 +63,16 @@ def receber_dados(request):
     else:
         return JsonResponse({"status": "error", "message": "Método não permitido"}, status=405)
 
-def graficos_basicos(request):
+def graficos_basicos(request, data=0):
     tempo_anterior = datetime.now() - timedelta(minutes=5)
     dados = Dados.objects.filter(data_hora__gte=tempo_anterior)
     tempos = [d.data_hora for d in dados]
 
+
+    # tenho quase ctz q da p botar tudo aqui num for so mas 
+    # falta uma semana p competicao eu quero q se foda problema eh teu agora
+
+    velocidade = [d.velocidade for d in dados]
     temperatura_motor = [d.temperatura_motor for d in dados]
     rpm = [d.rpm for d in dados]
     pressao_oleo = [d.pressao_oleo for d in dados]
@@ -74,6 +80,7 @@ def graficos_basicos(request):
     
     
     variaveis = [
+        [velocidade, 'velocidade'],
         [temperatura_motor, 'temperatura_motor'], 
         [rpm, 'rpm'], 
         [pressao_oleo, 'pressao_oleo'], 
@@ -94,10 +101,12 @@ def graficos_basicos(request):
         plt.savefig(image_path)
         plt.clf()
         context[variavel[1]] = imagem_src
-        
-    return render(request, 'tela_principal.html', {'context':context})
+    
+    if data==1:
+        return JsonResponse(context)
+    return render(request, 'grafico.html', {'context':context})
 
-def graficos_MPU(request):
+def graficos_MPU(request, data=0):
     tempo_anterior = datetime.now() - timedelta(minutes=5)
     dados = Dados.objects.filter(data_hora__gte=tempo_anterior)
     tempos = [d.data_hora for d in dados]
@@ -147,9 +156,13 @@ def graficos_MPU(request):
         plt.clf()
         context[variavel[1]] = imagem_src
     
+    print(data)
+
+    if data==1:
+        return JsonResponse(context)
     return render(request, 'grafico.html', {'context':context})
 
-def graficos_analogicos(request):
+def graficos_analogicos(request, data=0):
     tempo_anterior = datetime.now() - timedelta(minutes=5)
     dados = Dados.objects.filter(data_hora__gte=tempo_anterior)
     tempos = [d.data_hora for d in dados]
@@ -186,9 +199,11 @@ def graficos_analogicos(request):
         plt.clf()
         context[variavel[1]] = imagem_src
     
+    if data==1:
+        return JsonResponse(context)
     return render(request, 'grafico.html', {'context':context})
 
-def graficos_GPS(request):
+def graficos_GPS(request, data=0):
     tempo_anterior = datetime.now() - timedelta(minutes=5)
     dados = Dados.objects.filter(data_hora__gte=tempo_anterior)
     tempos = [d.data_hora for d in dados]
@@ -221,9 +236,11 @@ def graficos_GPS(request):
         plt.clf()
         context[variavel[1]] = imagem_src
     
+    if data==1:
+        return JsonResponse(context)
     return render(request, 'grafico.html', {'context':context})
 
-def graficos_MLX(request):
+def graficos_MLX(request, data=0):
     tempo_anterior = datetime.now() - timedelta(minutes=5)
     dados = Dados.objects.filter(data_hora__gte=tempo_anterior)
     tempos = [d.data_hora for d in dados]
@@ -256,7 +273,11 @@ def graficos_MLX(request):
         plt.clf()
         context[variavel[1]] = imagem_src
     
+    if data==1:
+        return JsonResponse(context)
     return render(request, 'grafico.html', {'context':context})
+
+
 
 def index(request):
     return render(request, 'index.html')

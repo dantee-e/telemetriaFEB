@@ -1,6 +1,6 @@
 // script.js
 
-function atualizarPonteiros(json_dados){
+function atualizarPonteiros(){
     console.log('pinto racing')
     fetch('/velocidade-RPM/', {
         method: 'GET',
@@ -10,7 +10,6 @@ function atualizarPonteiros(json_dados){
     })
     .then(response => response.json())
     .then(json_dados => {
-        
         const ponteiro1 = document.querySelector('#ponteiro-velocimetro');
         const ponteiro2 = document.querySelector('#ponteiro-tacometro');
     
@@ -71,8 +70,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     setInterval(atualizarPonteiros, 100);
-
-
-
 });
 

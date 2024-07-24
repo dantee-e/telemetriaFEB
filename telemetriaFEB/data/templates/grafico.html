@@ -4,15 +4,19 @@
 
 {% load static %}
 
-{% block title %}Index - Feb Racing{% endblock %}
+{% block title %}Graficos - Feb Racing{% endblock %}
+
+{% block expand_header %}{% endblock %}
 
 {% block content %}
     <h1>Gráficos das Variáveis</h1>
     <br><br>
     {% for nome, source in context.items %}
-        <img src="/static/{{ source }}">
+        <img src="/static/{{ source }}" id="{{ nome }}">
         <br>
     {% endfor %}
+
+    <script src="{% static 'js/graficos.js' %}"></script>
 {% endblock %}
 
 
